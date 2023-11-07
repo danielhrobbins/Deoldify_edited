@@ -476,15 +476,17 @@ from PIL import Image as PILImage
 from IPython import display as ipythondisplay
 from IPython.display import Image as ipythonimage
 
-def show_image_in_notebook(image_path: Path):
+def show_image_in_notebook(image_path: Path, counter: int):
     # Display the image in the notebook
     ipythondisplay.display(ipythonimage(str(image_path)))
     
-    # Save the image to a specified path
-    save_path = str(image_path).replace('.png', '_saved.png')  # Example save path
+    # Create a unique filename using the counter
+    unique_filename = f"{str(image_path).replace('.png', '')}_{counter}_saved.png"
+    
+    # Save the image with the unique filename
     pil_image = PILImage.open(image_path)
-    pil_image.save(save_path)
-    print(f"Image saved to {save_path}")
+    pil_image.save(unique_filename)
+    print(f"Image saved to {unique_filename}")
 
 def show_video_in_notebook(video_path: Path):
     video = io.open(video_path, 'r+b').read()
