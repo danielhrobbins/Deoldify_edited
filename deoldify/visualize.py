@@ -468,9 +468,23 @@ def get_artistic_image_colorizer(
     return vis
 
 
-def show_image_in_notebook(image_path: Path):
-    ipythondisplay.display(ipythonimage(str(image_path)))
+# def show_image_in_notebook(image_path: Path):
+#    ipythondisplay.display(ipythonimage(str(image_path)))
 
+from pathlib import Path
+from PIL import Image as PILImage
+from IPython import display as ipythondisplay
+from IPython.display import Image as ipythonimage
+
+def show_image_in_notebook(image_path: Path):
+    # Display the image in the notebook
+    ipythondisplay.display(ipythonimage(str(image_path)))
+    
+    # Save the image to a specified path
+    save_path = str(image_path).replace('.png', '_saved.png')  # Example save path
+    pil_image = PILImage.open(image_path)
+    pil_image.save(save_path)
+    print(f"Image saved to {save_path}")
 
 def show_video_in_notebook(video_path: Path):
     video = io.open(video_path, 'r+b').read()
